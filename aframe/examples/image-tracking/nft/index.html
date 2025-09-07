@@ -1,50 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>AR.js A-Frame NFT Example</title>
-  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-  <style>
-    .arjs-loader {
-      position: absolute;
-      width: 100%; height: 100%;
-      top: 0; left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 1.25em;
-      text-align: center;
-    }
-  </style>
-</head>
-<body style="margin:0; overflow:hidden;">
-  <div class="arjs-loader">Loading, please wait...</div>
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
-  <a-scene embedded vr-mode-ui="enabled: false"
-    renderer="logarithmicDepthBuffer: true;"
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    <a-nft type="nft" url="https://gedun7816-dev.github.io/ar.project/aframe/examples/image-tracking/nft/trex" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-      <a-entity 
-  gltf-model="https://gedun7816-dev.github.io/ar.project/aframe/examples/image-tracking/nft/trex/scene.gltf"
-  scale="5 5 5"
-  position="0 0 0"
-  rotation="0 0 0"
-  dracoDecoderPath="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r140/examples/js/libs/draco/"
-></a-entity>
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true; precision: medium;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+    <a-nft
+      type="nft"
+      url="gedun7816-dev.github.io/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+      smoothThreshold="5"
+    >
+      <a-entity
+        gltf-model="gedun7816-dev.github.io/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+        scale="5 5 5"
+        position="150 300 -100"
+      >
+      </a-entity>
     </a-nft>
-
     <a-entity camera></a-entity>
   </a-scene>
-
-  <script>
-    document.querySelector('a-scene').addEventListener('loaded', () => {
-      document.querySelector('.arjs-loader').style.display = 'none';
-    });
-  </script>
 </body>
-</html>
+
+
+
+
+
+
