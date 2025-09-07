@@ -1,57 +1,192 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>AR.js NFT 示例 - 已修复</title>
+  
+  <!-- 使用明确版本的A-Frame和AR.js -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.6.0/dist/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.7/dist/aframe-ar-nft.js"></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      color: white;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    .header {
+      padding: 15px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    
+    .arjs-loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .instructions {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+    }
+    
+    .instructions p {
+      margin: 5px 0;
+    }
+    
+    .version-info {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>AR.js NFT 恐龙示例</h1>
+      <p>将相机对准T-Rex图像标记</p >
+    </div>
+    
+    <div class="arjs-loader">
+      <div class="loading-spinner"></div>
+      <div>正在加载AR体验，请稍候...</div>
+      <div id="loading-details">初始化AR场景</div>
+    </div>
 
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    <div class="version-info">
+      A-Frame: 1.6.0 | AR.js: 3.4.7
+    </div>
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
+    <a-scene 
+      embedded 
+      vr-mode-ui="enabled: false"
+      renderer="logarithmicDepthBuffer: true; precision: medium;"
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+      device-orientation-permission-ui="enabled: false">
+      
+      <!-- 使用正确的NFT标记路径 -->
+      <a-nft 
+        type="nft" 
+        url="https://gedun7816-dev.github.io/ar.project/aframe/examples/image-tracking/nft/trex/trex-image/trex"
+        smooth="true" 
+        smoothCount="10" 
+        smoothTolerance="0.01" 
+        smoothThreshold="5">
+        
+        <!-- 使用正确路径和Draco解码器 -->
+        <a-entity 
+          gltf-model="
+            url: https://gedun7816-dev.github.io/ar.project/aframe/examples/image-tracking/nft/trex/scene.gltf;
+            dracoDecoderPath: https://raw.githack.com/mrdoob/three.js/dev/examples/js/libs/draco/
+          "
+          scale="5 5 5"
+          position="0 0 0"
+          rotation="0 0 0">
+        </a-entity>
+      </a-nft>
+      
+      <a-entity camera></a-entity>
+    </a-scene>
 
-<body style="margin : 0px; overflow: hidden;">
-  <!-- minimal loader shown until image descriptors are loaded -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
+    <div class="instructions">
+      <p>将相机对准T-Rex图像标记以查看AR恐龙</p >
+      <p>确保在光线充足的环境中使用</p >
+    </div>
   </div>
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
-    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
-    <a-nft
-      type="nft"
-      url="gedun7816-dev.github.io/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-      <a-entity
-        gltf-model="gedun7816-dev.github.io/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-        scale="5 5 5"
-        position="150 300 -100"
-      >
-      </a-entity>
-    </a-nft>
-    <a-entity camera></a-entity>
-  </a-scene>
+
+  <script>
+    // 显示加载状态
+    const loadingDetails = document.getElementById('loading-details');
+    const loader = document.querySelector('.arjs-loader');
+    
+    // 监听A-Frame场景加载事件
+    document.querySelector('a-scene').addEventListener('loaded', function() {
+      loadingDetails.textContent = '场景已加载，等待摄像头权限...';
+    });
+    
+    // 处理摄像头权限
+    document.querySelector('a-scene').addEventListener('arjs-video-permission-granted', function() {
+      loadingDetails.textContent = '摄像头权限已获取，初始化追踪...';
+    });
+    
+    // 场景就绪后隐藏加载界面
+    document.querySelector('a-scene').addEventListener('arjs-source-ready', function() {
+      setTimeout(function() {
+        loader.style.display = 'none';
+      }, 2000);
+    });
+    
+    // 处理错误
+    document.querySelector('a-scene').addEventListener('error', function(evt) {
+      loadingDetails.textContent = '错误: ' + evt.detail.message;
+      console.error('AR场景错误:', evt.detail);
+    });
+    
+    // 处理摄像头权限被拒绝
+    document.querySelector('a-scene').addEventListener('arjs-video-permission-denied', function() {
+      loadingDetails.innerHTML = '摄像头权限被拒绝。请刷新页面并允许摄像头访问。<br>' +
+                                '<button onclick="window.location.reload()">重新加载</button>';
+    });
+  </script>
 </body>
+</html>
 
 
 
