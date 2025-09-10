@@ -2,17 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Voxel AR</title>
+  <title>Voxel AR (Legacy Env)</title>
 
-  <!-- Aframe + AR.js -->
-  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <!-- 舊環境：A-Frame 1.6.0 + AR.js 3.4.7 -->
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar-nft.js"></script>
 
-  <!-- Custom Styles -->
+  <!-- 自訂樣式 -->
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body style="margin: 0; overflow: hidden;">
+
   <div class="arjs-loader">
     <div>Loading Camera...</div>
   </div>
@@ -23,7 +23,6 @@
     embedded
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
   >
-    <!-- NFT Marker -->
     <a-nft
       type="nft"
       url="https://gedun7816-dev.github.io/voxelar/photo"
@@ -32,15 +31,11 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
-      <a-entity
-        rotation="-135 -90 90"
-        scale="5 5 5"
-        position="0 0 0"
-        obj-model="obj: #tree-obj; mtl: #tree-mtl">
-      </a-entity>
+      <!-- 測試先用簡單方塊 -->
+      <a-box position="0 0.5 0" rotation="0 0 0" scale="0.5 0.5 0.5" color="red"></a-box>
+      <!-- 若這先成功後再換成 obj-model -->
     </a-nft>
 
-    <!-- Assets -->
     <a-assets>
       <a-asset-item id="tree-obj" src="https://gedun7816-dev.github.io/voxelar/bekdev.obj"></a-asset-item>
       <a-asset-item id="tree-mtl" src="https://gedun7816-dev.github.io/voxelar/bekdev.mtl"></a-asset-item>
@@ -48,6 +43,7 @@
 
     <a-entity camera></a-entity>
   </a-scene>
+
 </body>
 </html>
 
